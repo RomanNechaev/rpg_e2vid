@@ -2,9 +2,9 @@ import torch
 from model.model import *
 
 
-def load_model(path_to_model):
+def load_model(path_to_model, device=None):
     print('Loading model {}...'.format(path_to_model))
-    raw_model = torch.load(path_to_model)
+    raw_model = torch.load(path_to_model, map_location=device)
     arch = raw_model['arch']
 
     try:
@@ -21,7 +21,7 @@ def load_model(path_to_model):
     return model
 
 
-def get_device(use_gpu):
+def get_device(use_gpu=False):
     if use_gpu and torch.cuda.is_available():
         device = torch.device('cuda:0')
     else:

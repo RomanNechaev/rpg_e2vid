@@ -40,14 +40,14 @@ if __name__ == "__main__":
     path_to_events = args.input_file
 
     header = pd.read_csv(path_to_events, delim_whitespace=True, header=None, names=['width', 'height'],
-                         dtype={'width': np.int, 'height': np.int},
+                         dtype={'width': np.int_, 'height': np.int_},
                          nrows=1)
     width, height = header.values[0]
     print('Sensor size: {} x {}'.format(width, height))
 
     # Load model
-    model = load_model(args.path_to_model)
     device = get_device(args.use_gpu)
+    model = load_model(args.path_to_model, device)
 
     model = model.to(device)
     model.eval()
